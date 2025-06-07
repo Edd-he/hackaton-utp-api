@@ -20,13 +20,107 @@ let CalendarioService = class CalendarioService {
     async fetchCalendar(request) {
         const url = `https://api-pao.utpxpedition.com/course/student/calendar?userId=${request['user-id']}&dateToQuery=${request.date}+00:00:00&intervalMode=day`;
         const headers = {
-            Authorization: `Bearer ${request.token_class}`,
+            Authorization: `Bearer ${request.portal_token}`,
             'User-Id': request['user-id'],
             'User-Role': 'STUDENT',
             Origin: 'https://class.utp.edu.pe',
         };
         const res = await (0, rxjs_1.firstValueFrom)(this.http.get(url, { headers }));
         return res.data;
+    }
+    async fetchCalendarPortal(request) {
+        const query = `
+      query getSchedules($date: Float!, $periods: [String!]) {
+        scheduleByDate(
+          filters: {
+            date: $date,
+            classTypes: [1, 2, 3, 4, 5, 6],
+            periods: $periods
+          }
+        ) {
+          dates {
+            date
+            items {
+              name
+              typeSchedule {
+                id
+                name
+              }
+              modality {
+                id
+                name
+                location
+              }
+              hasCrossing
+              isRescheduled
+              period
+              date
+              startTime
+              endTime
+              class {
+                id
+                start
+                end
+                type
+                classType
+                descAmb
+                professors {
+                  firstName
+                  lastName
+                }
+                location {
+                  classRoom {
+                    desc
+                    id
+                    floor
+                  }
+                  building {
+                    id
+                    image
+                    desc
+                    address
+                    coordinates {
+                      latitude
+                      longitude
+                    }
+                  }
+                }
+                professors {
+                  firstName
+                  lastName
+                }
+                instructionMode
+                isReprog
+                name
+                desc
+                linkZoom
+                hours
+                isClass
+                isHybrid
+                linkCourseClass
+              }
+            }
+          }
+        }
+      }
+    `;
+        const timestamp = new Date(`${request.date}T00:00:00.000Z`).getTime();
+        const variables = {
+            date: timestamp,
+            periods: [request.period, request.period],
+        };
+        const headers = {
+            Accept: '*/*',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${request.portal_token}`,
+            applicationid: 'APP00002',
+            'user-id': request.cod,
+            'user-role': 'student',
+        };
+        const res = await (0, rxjs_1.firstValueFrom)(this.http.post('https://api-portal.utpxpedition.com/graphql', { query, variables }, { headers }));
+        const result = res.data;
+        const filteredDate = result.data.scheduleByDate.dates.find((d) => d.date === request.date);
+        return filteredDate ?? null;
     }
 };
 exports.CalendarioService = CalendarioService;

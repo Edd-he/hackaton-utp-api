@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common'
+import { HttpModule } from '@nestjs/axios'
+
 import { NotasService } from './notas.service'
 import { NotasController } from './notas.controller'
-import { HttpModule } from '@nestjs/axios'
 
 @Module({
   imports: [HttpModule],

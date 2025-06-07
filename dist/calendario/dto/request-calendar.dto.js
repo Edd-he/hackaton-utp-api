@@ -14,7 +14,7 @@ const openapi = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class RequestCalendarDto {
     static _OPENAPI_METADATA_FACTORY() {
-        return { 'user-id': { required: true, type: () => String }, token_class: { required: true, type: () => String }, date: { required: true, type: () => String } };
+        return { 'user-id': { required: true, type: () => String }, portal_token: { required: true, type: () => String }, date: { required: true, type: () => String }, period: { required: true, type: () => String }, cod: { required: true, type: () => String } };
     }
 }
 exports.RequestCalendarDto = RequestCalendarDto;
@@ -25,9 +25,17 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], RequestCalendarDto.prototype, "token_class", void 0);
+], RequestCalendarDto.prototype, "portal_token", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], RequestCalendarDto.prototype, "date", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], RequestCalendarDto.prototype, "period", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], RequestCalendarDto.prototype, "cod", void 0);
 //# sourceMappingURL=request-calendar.dto.js.map

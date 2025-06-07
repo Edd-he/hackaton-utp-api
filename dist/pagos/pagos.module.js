@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PagosModule = void 0;
 const common_1 = require("@nestjs/common");
+const axios_1 = require("@nestjs/axios");
 const pagos_service_1 = require("./pagos.service");
 const pagos_controller_1 = require("./pagos.controller");
-const axios_1 = require("@nestjs/axios");
 let PagosModule = class PagosModule {
 };
 exports.PagosModule = PagosModule;

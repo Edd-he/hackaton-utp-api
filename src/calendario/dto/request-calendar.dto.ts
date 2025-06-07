@@ -5,8 +5,14 @@ export class RequestCalendarDto {
   'user-id': string
 
   @IsString()
-  token_class: string
+  portal_token: string
 
   @IsString()
   date: string
+
+  @IsString()
+  period: string
+
+  @IsString()
+  cod: string
 }

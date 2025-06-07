@@ -11,10 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RequestPaymentsDto = void 0;
 const openapi = require("@nestjs/swagger");
+const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class RequestPaymentsDto {
+    constructor() {
+        this.strm = '2552';
+    }
     static _OPENAPI_METADATA_FACTORY() {
-        return { emplid: { required: true, type: () => String }, grado: { required: true, type: () => String }, strm: { required: true, type: () => String } };
+        return { emplid: { required: true, type: () => String }, grado: { required: true, type: () => String } };
     }
 }
 exports.RequestPaymentsDto = RequestPaymentsDto;
@@ -27,6 +31,7 @@ __decorate([
     __metadata("design:type", String)
 ], RequestPaymentsDto.prototype, "grado", void 0);
 __decorate([
+    (0, swagger_1.ApiHideProperty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], RequestPaymentsDto.prototype, "strm", void 0);

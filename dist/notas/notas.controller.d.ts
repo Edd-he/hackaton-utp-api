@@ -1,6 +1,7 @@
 import { NotasService } from './notas.service';
+import { RequestGradesDto } from './dto/request-grade.dto';
 export declare class NotasController {
     private readonly notasService;
     constructor(notasService: NotasService);
-    findAll(): Promise<any>;
+    findAll(request: RequestGradesDto): Promise<any>;
 }

@@ -1,5 +1,7 @@
 export declare class RequestCalendarDto {
     'user-id': string;
-    token_class: string;
+    portal_token: string;
     date: string;
+    period: string;
+    cod: string;
 }

@@ -1,24 +1,19 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common'
+import { Body, Controller, Post } from '@nestjs/common'
+
 import { PagosService } from './pagos.service'
+import { RequestPaymentsDto } from './dto/request-payments.dto'
 
 @Controller('pagos')
 export class PagosController {
   constructor(private readonly pagosService: PagosService) {}
 
-  @Get()
-  findAll() {
+  @Post()
+  findAll(@Body() request: RequestPaymentsDto) {
+    console.log(request)
     return this.pagosService.getPayments({
-      emplid: '00001387717',
-      grado: 'PREG',
-      strm: '2252',
+      emplid: request.emplid,
+      grado: request.grado,
+      strm: request.strm,
     })
   }
 }

@@ -11,10 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RequestGradesDto = void 0;
 const openapi = require("@nestjs/swagger");
+const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class RequestGradesDto {
+    constructor() {
+        this.period = '2552';
+    }
     static _OPENAPI_METADATA_FACTORY() {
-        return { portal_token: { required: true, type: () => String }, period: { required: true, type: () => String }, cod: { required: true, type: () => String } };
+        return { portal_token: { required: true, type: () => String }, cod: { required: true, type: () => String } };
     }
 }
 exports.RequestGradesDto = RequestGradesDto;
@@ -23,6 +27,7 @@ __decorate([
     __metadata("design:type", String)
 ], RequestGradesDto.prototype, "portal_token", void 0);
 __decorate([
+    (0, swagger_1.ApiHideProperty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], RequestGradesDto.prototype, "period", void 0);
