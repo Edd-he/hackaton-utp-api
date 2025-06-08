@@ -13,6 +13,7 @@ exports.CalendarioService = void 0;
 const common_1 = require("@nestjs/common");
 const rxjs_1 = require("rxjs");
 const axios_1 = require("@nestjs/axios");
+const format_date_1 = require("../common/utils/format-date");
 let CalendarioService = class CalendarioService {
     constructor(http) {
         this.http = http;
@@ -128,19 +129,12 @@ let CalendarioService = class CalendarioService {
                 curso: item.name,
                 profesor: `${classData.professors.firstName} ${classData.professors.lastName}`,
                 salon: classData.location.classRoom.id,
-                dia: new Date(item.date).toLocaleDateString('es-PE', {
+                dia: new Date(item.date + 86400000).toLocaleDateString('es-PE', {
                     weekday: 'long',
+                    timeZone: 'America/Lima',
                 }),
-                inicio: new Date(item.startTime).toLocaleTimeString('es-PE', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: false,
-                }),
-                fin: new Date(item.endTime).toLocaleTimeString('es-PE', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: false,
-                }),
+                inicio: (0, format_date_1.formatDate)(new Date(item.startTime)).split(' ')[1],
+                fin: (0, format_date_1.formatDate)(new Date(item.endTime)).split(' ')[1],
             };
         });
         return {

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { firstValueFrom } from 'rxjs'
 import { HttpService } from '@nestjs/axios'
+import { formatDate } from 'src/common/utils/format-date'
 
 import { RequestCalendarDto } from './dto/request-calendar.dto'
 import { Root } from './types/calendar.types'
@@ -126,7 +127,6 @@ export class CalendarioService {
     const filteredDate = result.data.scheduleByDate.dates.find(
       (d) => d.date === request.date,
     )
-
     if (!filteredDate) return null
 
     const formattedItems = filteredDate.items.map((item) => {
@@ -135,19 +135,12 @@ export class CalendarioService {
         curso: item.name,
         profesor: `${classData.professors.firstName} ${classData.professors.lastName}`,
         salon: classData.location.classRoom.id,
-        dia: new Date(item.date).toLocaleDateString('es-PE', {
+        dia: new Date(item.date + 86400000).toLocaleDateString('es-PE', {
           weekday: 'long',
+          timeZone: 'America/Lima',
         }),
-        inicio: new Date(item.startTime).toLocaleTimeString('es-PE', {
-          hour: '2-digit',
-          minute: '2-digit',
-          hour12: false,
-        }),
-        fin: new Date(item.endTime).toLocaleTimeString('es-PE', {
-          hour: '2-digit',
-          minute: '2-digit',
-          hour12: false,
-        }),
+        inicio: formatDate(new Date(item.startTime)).split(' ')[1],
+        fin: formatDate(new Date(item.endTime)).split(' ')[1],
       }
     })
 
