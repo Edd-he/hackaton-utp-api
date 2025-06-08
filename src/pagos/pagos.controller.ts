@@ -15,10 +15,8 @@ export class PagosController {
   @ApiBearerAuth()
   @Auth()
   @Get('/obtener-pagos')
-  findAll(
-    @UserSession() session: IUserSession,
-    @Body() request: RequestPaymentsDto,
-  ) {
+  findAll(@UserSession() session: IUserSession) {
+    console.warn(session)
     return this.pagosService.getPayments()
   }
 }
