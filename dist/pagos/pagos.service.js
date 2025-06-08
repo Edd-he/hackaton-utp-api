@@ -45,7 +45,37 @@ let PagosService = class PagosService {
                 estado: raw(cells[4]).text().trim(),
             });
         });
-        return result;
+        const pagosSimulados = [
+            {
+                item: '001',
+                descripcion: 'Matrícula semestre 2023-2',
+                monto: 'S/ 1200.00',
+                vencimiento: '2023-08-15',
+                estado: 'Pagado',
+            },
+            {
+                item: '002',
+                descripcion: 'Cuota mensual septiembre',
+                monto: 'S/ 300.00',
+                vencimiento: '2023-09-05',
+                estado: 'Pendiente',
+            },
+            {
+                item: '003',
+                descripcion: 'Seguro escolar',
+                monto: 'S/ 50.00',
+                vencimiento: '2023-09-10',
+                estado: 'Pagado',
+            },
+            {
+                item: '004',
+                descripcion: 'Cuota mensual octubre',
+                monto: 'S/ 300.00',
+                vencimiento: '2023-10-05',
+                estado: 'Pendiente',
+            },
+        ];
+        return pagosSimulados;
     }
 };
 exports.PagosService = PagosService;

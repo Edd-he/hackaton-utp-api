@@ -33,7 +33,7 @@ __decorate([
     (0, swagger_1.ApiBearerAuth)(),
     (0, auth_decorator_1.Auth)(),
     (0, common_1.Get)('/obtener-pagos'),
-    openapi.ApiResponse({ status: 200, type: [Object] }),
+    openapi.ApiResponse({ status: 200 }),
     __param(0, (0, user_session_decorator_1.UserSession)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
