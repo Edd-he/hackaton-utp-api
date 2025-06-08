@@ -11,12 +11,20 @@ const common_1 = require("@nestjs/common");
 const calendario_module_1 = require("./calendario/calendario.module");
 const pagos_module_1 = require("./pagos/pagos.module");
 const notas_module_1 = require("./notas/notas.module");
+const users_module_1 = require("./users/users.module");
+const prisma_module_1 = require("./prisma/prisma.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [calendario_module_1.CalendarioModule, pagos_module_1.PagosModule, notas_module_1.NotasModule],
+        imports: [
+            calendario_module_1.CalendarioModule,
+            pagos_module_1.PagosModule,
+            notas_module_1.NotasModule,
+            users_module_1.UsersModule,
+            prisma_module_1.PrismaModule,
+        ],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

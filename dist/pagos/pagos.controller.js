@@ -22,7 +22,6 @@ let PagosController = class PagosController {
         this.pagosService = pagosService;
     }
     findAll(request) {
-        console.log(request);
         return this.pagosService.getPayments({
             emplid: request.emplid,
             grado: request.grado,

@@ -9,7 +9,6 @@ export class PagosController {
 
   @Post()
   findAll(@Body() request: RequestPaymentsDto) {
-    console.log(request)
     return this.pagosService.getPayments({
       emplid: request.emplid,
       grado: request.grado,
