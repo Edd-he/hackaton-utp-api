@@ -13,6 +13,7 @@ const pagos_module_1 = require("./pagos/pagos.module");
 const notas_module_1 = require("./notas/notas.module");
 const users_module_1 = require("./users/users.module");
 const prisma_module_1 = require("./prisma/prisma.module");
+const cursos_module_1 = require("./cursos/cursos.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -24,6 +25,7 @@ exports.AppModule = AppModule = __decorate([
             notas_module_1.NotasModule,
             users_module_1.UsersModule,
             prisma_module_1.PrismaModule,
+            cursos_module_1.CursosModule,
         ],
     })
 ], AppModule);

@@ -7,26 +7,34 @@ export declare class UsersController {
     constructor(usersService: UsersService);
     createUser(createUserDto: CreateUserDto): Promise<{
         cod: string;
-        nombre: string;
         token: string;
+        emplid: string;
+        grado: string;
+        nombre: string;
         id: number;
     }>;
     getAllUsers(): Promise<{
         cod: string;
-        nombre: string;
         token: string;
+        emplid: string;
+        grado: string;
+        nombre: string;
         id: number;
     }[]>;
     getOneUser(dto: SignInDto): Promise<{
-        cod: string;
-        nombre: string;
-        token: string;
-        id: number;
+        user: {
+            id: number;
+            usuario: string;
+            cod: string;
+        };
+        access: string;
     }>;
     updateUser(userId: number, updateUserDto: UpdateUserDto): Promise<{
         cod: string;
-        nombre: string;
         token: string;
+        emplid: string;
+        grado: string;
+        nombre: string;
         id: number;
     }>;
     removeUser(userId: number): Promise<{

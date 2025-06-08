@@ -32,7 +32,7 @@ let UsersController = class UsersController {
         return this.usersService.findAll();
     }
     async getOneUser(dto) {
-        return this.usersService.getOneByEmail(dto);
+        return this.usersService.signIn(dto);
     }
     async updateUser(userId, updateUserDto) {
         const admin = await this.usersService.update(userId, updateUserDto);
@@ -66,7 +66,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getAllUsers", null);
 __decorate([
-    (0, common_1.Post)('/inciar-sesion'),
+    (0, common_1.Post)('iniciar-sesion'),
     (0, swagger_1.ApiOperation)({
         summary: 'Iniciar Sesion',
     }),

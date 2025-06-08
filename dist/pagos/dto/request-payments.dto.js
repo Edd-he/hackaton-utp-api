@@ -18,15 +18,19 @@ class RequestPaymentsDto {
         this.strm = '2552';
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { emplid: { required: true, type: () => String }, grado: { required: true, type: () => String } };
+        return {};
     }
 }
 exports.RequestPaymentsDto = RequestPaymentsDto;
 __decorate([
+    (0, swagger_1.ApiHideProperty)(),
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], RequestPaymentsDto.prototype, "emplid", void 0);
 __decorate([
+    (0, swagger_1.ApiHideProperty)(),
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], RequestPaymentsDto.prototype, "grado", void 0);

@@ -16,57 +16,58 @@ const rxjs_1 = require("rxjs");
 let NotasService = class NotasService {
     constructor(http) {
         this.http = http;
-    }
-    async fetchGrades(request) {
-        const query = `
-      query GetCourseSummary($periodId: String!) {
-        getCourseSummary(periodId: $periodId) {
-          summary {
-            campus
-            enrolledCourses
-            average
-            relativeCycle
-            creditCount
-            meritOrder
-            weeklyHours
-            meritBelong
-          }
-          courses {
+        this.apiUrl = 'https://api-portal.utpxpedition.com/graphql';
+        this.query = `
+    query GetCourseSummary($periodId: String!) {
+      getCourseSummary(periodId: $periodId) {
+        summary {
+          campus
+          enrolledCourses
+          average
+          relativeCycle
+          creditCount
+          meritOrder
+          weeklyHours
+          meritBelong
+        }
+        courses {
+          courseId
+          title
+          catalogNumber
+          approvalStatus
+          professors
+          teacher
+          courseMode
+          schedule {
+            class
             courseId
-            title
-            catalogNumber
-            approvalStatus
-            professors
-            teacher
-            courseMode
-            schedule {
-              class
-              courseId
-              day
-              endDate
-              sectionId
-              startDate
-            }
-            weeklyHours
-            credits
-            numberTimes
-            section
-            evaluations {
-              name
-              value
-              shortName
-            }
-            module
-            formula
-            average
-            relatedCourse {
-              code
-              description
-            }
+            day
+            endDate
+            sectionId
+            startDate
+          }
+          weeklyHours
+          credits
+          numberTimes
+          section
+          evaluations {
+            name
+            value
+            shortName
+          }
+          module
+          formula
+          average
+          relatedCourse {
+            code
+            description
           }
         }
       }
-    `;
+    }
+  `;
+    }
+    async fetchGrades(request) {
         const variables = { periodId: request.period };
         const headers = {
             Accept: '*/*',
@@ -76,8 +77,24 @@ let NotasService = class NotasService {
             'user-id': request.cod,
             'user-role': 'student',
         };
-        const response = await (0, rxjs_1.firstValueFrom)(this.http.post('https://api-portal.utpxpedition.com/graphql', { query, variables }, { headers }));
+        const response = await (0, rxjs_1.firstValueFrom)(this.http.post(this.apiUrl, { query: this.query, variables }, { headers }));
         return response.data.data.getCourseSummary;
+    }
+    async getGrades(request) {
+        const data = await this.fetchGrades(request);
+        const course = data.courses.find((c) => c.courseId === request.course_id);
+        if (!course) {
+            throw new common_1.BadRequestException(`No se encontró el curso con ID: ${request.course_id}`);
+        }
+        const notasTraducidas = course.evaluations.map((evalItem) => ({
+            nombre: evalItem.name,
+            valor: evalItem.value,
+            abreviatura: evalItem.shortName,
+        }));
+        return {
+            curso: course.title,
+            notas: notasTraducidas,
+        };
     }
 };
 exports.NotasService = NotasService;

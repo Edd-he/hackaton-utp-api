@@ -15,34 +15,32 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CalendarioController = void 0;
 const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
+const auth_decorator_1 = require("../users/decorators/auth.decorator");
+const user_session_decorator_1 = require("../users/decorators/user-session.decorator");
+const swagger_1 = require("@nestjs/swagger");
 const calendario_service_1 = require("./calendario.service");
 const request_calendar_dto_1 = require("./dto/request-calendar.dto");
 let CalendarioController = class CalendarioController {
     constructor(calendarioService) {
         this.calendarioService = calendarioService;
     }
-    getAll(request) {
-        return this.calendarioService.fetchCalendar(request);
-    }
-    getAllByPortal(request) {
+    getAllByPortal(session, request) {
+        request.cod = session.cod;
+        request.portal_token = session.portal_token;
+        request['user-id'] = session.cod;
         return this.calendarioService.fetchCalendarPortal(request);
     }
 };
 exports.CalendarioController = CalendarioController;
 __decorate([
-    (0, common_1.Post)('class-calendario'),
-    openapi.ApiResponse({ status: 201, type: Object }),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [request_calendar_dto_1.RequestCalendarDto]),
-    __metadata("design:returntype", void 0)
-], CalendarioController.prototype, "getAll", null);
-__decorate([
+    (0, swagger_1.ApiBearerAuth)(),
+    (0, auth_decorator_1.Auth)(),
     (0, common_1.Post)('portal-calendario'),
-    openapi.ApiResponse({ status: 201, type: Object }),
-    __param(0, (0, common_1.Body)()),
+    openapi.ApiResponse({ status: 201 }),
+    __param(0, (0, user_session_decorator_1.UserSession)()),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [request_calendar_dto_1.RequestCalendarDto]),
+    __metadata("design:paramtypes", [Object, request_calendar_dto_1.RequestCalendarDto]),
     __metadata("design:returntype", void 0)
 ], CalendarioController.prototype, "getAllByPortal", null);
 exports.CalendarioController = CalendarioController = __decorate([

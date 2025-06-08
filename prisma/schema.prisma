@@ -17,6 +17,8 @@ model User {
   id          Int    @id @default(autoincrement())
   cod         String @unique
   nombre      String
-  contraseña  String
+  contraseña String
+  grado       String
+  emplid      String
   token       String @db.Text
 }

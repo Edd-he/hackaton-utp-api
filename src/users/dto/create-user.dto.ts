@@ -15,4 +15,10 @@ export class CreateUserDto {
 
   @IsString()
   token: string
+
+  @IsString()
+  emplid: string
+
+  @IsString()
+  grado: string
 }

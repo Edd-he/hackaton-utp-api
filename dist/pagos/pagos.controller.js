@@ -15,27 +15,33 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PagosController = void 0;
 const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
+const user_session_decorator_1 = require("../users/decorators/user-session.decorator");
+const auth_decorator_1 = require("../users/decorators/auth.decorator");
+const swagger_1 = require("@nestjs/swagger");
 const pagos_service_1 = require("./pagos.service");
 const request_payments_dto_1 = require("./dto/request-payments.dto");
 let PagosController = class PagosController {
     constructor(pagosService) {
         this.pagosService = pagosService;
     }
-    findAll(request) {
+    findAll(session, request) {
         return this.pagosService.getPayments({
-            emplid: request.emplid,
-            grado: request.grado,
+            emplid: session.emplid,
+            grado: session.grado,
             strm: request.strm,
         });
     }
 };
 exports.PagosController = PagosController;
 __decorate([
-    (0, common_1.Post)(),
-    openapi.ApiResponse({ status: 201, type: [Object] }),
-    __param(0, (0, common_1.Body)()),
+    (0, swagger_1.ApiBearerAuth)(),
+    (0, auth_decorator_1.Auth)(),
+    (0, common_1.Get)('/obtener-pagos'),
+    openapi.ApiResponse({ status: 200, type: [Object] }),
+    __param(0, (0, user_session_decorator_1.UserSession)()),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [request_payments_dto_1.RequestPaymentsDto]),
+    __metadata("design:paramtypes", [Object, request_payments_dto_1.RequestPaymentsDto]),
     __metadata("design:returntype", void 0)
 ], PagosController.prototype, "findAll", null);
 exports.PagosController = PagosController = __decorate([

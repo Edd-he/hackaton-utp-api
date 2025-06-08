@@ -13,9 +13,12 @@ exports.UsersService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
 const prisma_exception_1 = require("../prisma/exceptions/prisma.exception");
+const jwt_1 = require("@nestjs/jwt");
+const envs_1 = require("../config/envs");
 let UsersService = class UsersService {
-    constructor(db) {
+    constructor(db, jwt) {
         this.db = db;
+        this.jwt = jwt;
     }
     async create(createUserDto) {
         try {
@@ -70,6 +73,30 @@ let UsersService = class UsersService {
             throw new common_1.InternalServerErrorException('Hubo un error al actualizar el usuario');
         }
     }
+    async signIn({ cod, contraseña }) {
+        const user = await this.getOneByEmail({ cod, contraseña });
+        if (!user)
+            throw new common_1.UnauthorizedException('Las credenciales no son válidas');
+        const payload = {
+            id: user.id,
+            usuario: user.nombre,
+            cod: user.cod,
+            emplid: user.emplid,
+            grado: user.grado,
+            portal_token: user.token,
+        };
+        return {
+            user: {
+                id: user.id,
+                usuario: user.nombre,
+                cod: user.cod,
+            },
+            access: await this.jwt.signAsync(payload, {
+                secret: envs_1.envs.jwt,
+                expiresIn: '1d',
+            }),
+        };
+    }
     async remove(id) {
         try {
             await this.db.user.delete({
@@ -90,6 +117,7 @@ let UsersService = class UsersService {
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
+        jwt_1.JwtService])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map

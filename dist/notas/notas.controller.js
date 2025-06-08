@@ -15,30 +15,35 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.NotasController = void 0;
 const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
-const tokens_1 = require("../common/constants/tokens");
+const auth_decorator_1 = require("../users/decorators/auth.decorator");
+const user_session_decorator_1 = require("../users/decorators/user-session.decorator");
+const swagger_1 = require("@nestjs/swagger");
 const notas_service_1 = require("./notas.service");
-const request_grade_dto_1 = require("./dto/request-grade.dto");
 let NotasController = class NotasController {
     constructor(notasService) {
         this.notasService = notasService;
     }
-    findAll(request) {
-        return this.notasService.fetchGrades({
-            cod: request.cod,
+    getGrades(cursoId, session) {
+        return this.notasService.getGrades({
+            course_id: cursoId,
+            cod: session.cod,
             period: '2252',
-            portal_token: tokens_1.TOKEN_PORTAL,
+            portal_token: session.portal_token,
         });
     }
 };
 exports.NotasController = NotasController;
 __decorate([
-    (0, common_1.Post)(),
-    openapi.ApiResponse({ status: 201, type: Object }),
-    __param(0, (0, common_1.Body)()),
+    (0, swagger_1.ApiBearerAuth)(),
+    (0, common_1.Get)(':cursoId/obtener-notas'),
+    (0, auth_decorator_1.Auth)(),
+    openapi.ApiResponse({ status: 200 }),
+    __param(0, (0, common_1.Param)('cursoId')),
+    __param(1, (0, user_session_decorator_1.UserSession)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [request_grade_dto_1.RequestGradesDto]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
-], NotasController.prototype, "findAll", null);
+], NotasController.prototype, "getGrades", null);
 exports.NotasController = NotasController = __decorate([
     (0, common_1.Controller)('notas'),
     __metadata("design:paramtypes", [notas_service_1.NotasService])

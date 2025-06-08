@@ -1,7 +1,10 @@
+import { IUserSession } from 'src/users/types/user-session.interface';
 import { NotasService } from './notas.service';
-import { RequestGradesDto } from './dto/request-grade.dto';
 export declare class NotasController {
     private readonly notasService;
     constructor(notasService: NotasService);
-    findAll(request: RequestGradesDto): Promise<any>;
+    getGrades(cursoId: string, session: IUserSession): Promise<{
+        curso: any;
+        notas: any;
+    }>;
 }

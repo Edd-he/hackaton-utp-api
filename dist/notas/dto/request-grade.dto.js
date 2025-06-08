@@ -18,11 +18,17 @@ class RequestGradesDto {
         this.period = '2552';
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { portal_token: { required: true, type: () => String }, cod: { required: true, type: () => String } };
+        return { course_id: { required: true, type: () => String } };
     }
 }
 exports.RequestGradesDto = RequestGradesDto;
 __decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], RequestGradesDto.prototype, "course_id", void 0);
+__decorate([
+    (0, swagger_1.ApiHideProperty)(),
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], RequestGradesDto.prototype, "portal_token", void 0);
@@ -32,6 +38,8 @@ __decorate([
     __metadata("design:type", String)
 ], RequestGradesDto.prototype, "period", void 0);
 __decorate([
+    (0, swagger_1.ApiHideProperty)(),
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], RequestGradesDto.prototype, "cod", void 0);

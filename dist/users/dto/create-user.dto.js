@@ -14,7 +14,7 @@ const openapi = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class CreateUserDto {
     static _OPENAPI_METADATA_FACTORY() {
-        return { cod: { required: true, type: () => String, pattern: "/^u\\d{8}$/" }, nombre: { required: true, type: () => String }, contraseña: { required: true, type: () => String }, token: { required: true, type: () => String } };
+        return { cod: { required: true, type: () => String, pattern: "/^u\\d{8}$/" }, nombre: { required: true, type: () => String }, contraseña: { required: true, type: () => String }, token: { required: true, type: () => String }, emplid: { required: true, type: () => String }, grado: { required: true, type: () => String } };
     }
 }
 exports.CreateUserDto = CreateUserDto;
@@ -37,4 +37,12 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "token", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "emplid", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "grado", void 0);
 //# sourceMappingURL=create-user.dto.js.map

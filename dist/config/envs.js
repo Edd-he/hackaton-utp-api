@@ -6,6 +6,7 @@ const joi = require("joi");
 const envSchema = joi
     .object({
     PORT: joi.number().required(),
+    JWT: joi.string().required(),
 })
     .unknown(true);
 const { error, value } = envSchema.validate(process.env);
@@ -15,5 +16,6 @@ if (error) {
 const envVariables = value;
 exports.envs = {
     port: envVariables.PORT,
+    jwt: envVariables.JWT,
 };
 //# sourceMappingURL=envs.js.map

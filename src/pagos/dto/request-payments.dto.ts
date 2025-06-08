@@ -1,10 +1,14 @@
 import { ApiHideProperty } from '@nestjs/swagger'
-import { IsString } from 'class-validator'
+import { IsOptional, IsString } from 'class-validator'
 
 export class RequestPaymentsDto {
+  @ApiHideProperty()
+  @IsOptional()
   @IsString()
   emplid: string
 
+  @ApiHideProperty()
+  @IsOptional()
   @IsString()
   grado: string
 

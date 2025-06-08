@@ -10,8 +10,7 @@ export class PagosService {
   constructor(private readonly http: HttpService) {}
   async getPayments({ emplid, strm, grado }: RequestPaymentsDto) {
     const url = `https://portalestudiante.utp.edu.pe/IntegratorWithPortalC/ConsultaKardex?emplid=${emplid}&grado=${grado}&strm=${strm}`
-    //https://portalestudiante.utp.edu.pe/IntegratorWithPortalC/ConsultaKardex?emplid=00001387717&grado=PREG&strm=2552
-    //https://portalestudiante.utp.edu.pe/IntegratorWithPortalC/ConsultaKardex?emplid=00001387717&grado=PREG&strm=2252
+
     const response = await lastValueFrom(
       this.http.get(url, {
         headers: {

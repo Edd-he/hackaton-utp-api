@@ -3,4 +3,6 @@ export declare class CreateUserDto {
     nombre: string;
     contraseña: string;
     token: string;
+    emplid: string;
+    grado: string;
 }

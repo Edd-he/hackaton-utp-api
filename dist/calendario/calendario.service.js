@@ -120,7 +120,33 @@ let CalendarioService = class CalendarioService {
         const res = await (0, rxjs_1.firstValueFrom)(this.http.post('https://api-portal.utpxpedition.com/graphql', { query, variables }, { headers }));
         const result = res.data;
         const filteredDate = result.data.scheduleByDate.dates.find((d) => d.date === request.date);
-        return filteredDate ?? null;
+        if (!filteredDate)
+            return null;
+        const formattedItems = filteredDate.items.map((item) => {
+            const classData = item.class;
+            return {
+                curso: item.name,
+                profesor: `${classData.professors.firstName} ${classData.professors.lastName}`,
+                salon: classData.location.classRoom.id,
+                dia: new Date(item.date).toLocaleDateString('es-PE', {
+                    weekday: 'long',
+                }),
+                inicio: new Date(item.startTime).toLocaleTimeString('es-PE', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false,
+                }),
+                fin: new Date(item.endTime).toLocaleTimeString('es-PE', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false,
+                }),
+            };
+        });
+        return {
+            fecha: filteredDate.date,
+            clases: formattedItems,
+        };
     }
 };
 exports.CalendarioService = CalendarioService;

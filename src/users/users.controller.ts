@@ -35,12 +35,12 @@ export class UsersController {
     return this.usersService.findAll()
   }
 
-  @Post('/inciar-sesion')
+  @Post('iniciar-sesion')
   @ApiOperation({
     summary: 'Iniciar Sesion',
   })
   async getOneUser(@Body() dto: SignInDto) {
-    return this.usersService.getOneByEmail(dto)
+    return this.usersService.signIn(dto)
   }
 
   @Patch(':userId/update-user')

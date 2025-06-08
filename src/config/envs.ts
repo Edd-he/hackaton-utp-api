@@ -3,11 +3,13 @@ import * as joi from 'joi'
 
 type EnvVariables = {
   PORT: number
+  JWT: string
 }
 
 const envSchema = joi
   .object({
     PORT: joi.number().required(),
+    JWT: joi.string().required(),
   })
   .unknown(true)
 
@@ -20,4 +22,5 @@ const envVariables: EnvVariables = value
 
 export const envs = {
   port: envVariables.PORT,
+  jwt: envVariables.JWT,
 }
