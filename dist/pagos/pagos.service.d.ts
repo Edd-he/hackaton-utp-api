@@ -9,5 +9,4 @@ export declare class PagosService {
         vencimiento: string;
         estado: string;
     }[]>;
-    private parseHtml;
 }

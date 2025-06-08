@@ -12,67 +12,46 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PagosService = void 0;
 const axios_1 = require("@nestjs/axios");
 const common_1 = require("@nestjs/common");
-const cheerio = require("cheerio");
-const rxjs_1 = require("rxjs");
 let PagosService = class PagosService {
     constructor(http) {
         this.http = http;
     }
     async getPayments() {
-        const url = `https://portalestudiante.utp.edu.pe/IntegratorWithPortalC/ConsultaKardex?emplid=00001387717&grado=PREG&strm=2252`;
-        const response = await (0, rxjs_1.lastValueFrom)(this.http.get(url, {
-            headers: {
-                'User-Agent': 'Mozilla/5.0',
-                'X-Requested-With': 'XMLHttpRequest',
-                Accept: 'text/html, */*; q=0.01',
-                Referer: 'https://portalestudiante.utp.edu.pe/IntegratorWithPortalC/EstadoCuenta',
-            },
-        }));
-        const html = response.data;
-        return this.parseHtml(html);
-    }
-    parseHtml(html) {
-        const raw = cheerio.load(html);
-        const rows = raw('.cursos_detalle tr');
-        const result = [];
-        rows.each((_, row) => {
-            const cells = raw(row).find('td');
-            result.push({
-                item: raw(cells[0]).text().trim(),
-                descripcion: raw(cells[1]).text().trim(),
-                monto: raw(cells[2]).text().trim(),
-                vencimiento: raw(cells[3]).text().trim(),
-                estado: raw(cells[4]).text().trim(),
-            });
-        });
         const pagosSimulados = [
             {
                 item: '001',
-                descripcion: 'Matrícula semestre 2023-2',
-                monto: 'S/ 1200.00',
-                vencimiento: '2023-08-15',
-                estado: 'Pagado',
+                descripcion: 'CUOTA 001',
+                monto: 'S/ 970.24',
+                vencimiento: '27/03/25',
+                estado: 'PAGADO',
             },
             {
                 item: '002',
-                descripcion: 'Cuota mensual septiembre',
-                monto: 'S/ 300.00',
-                vencimiento: '2023-09-05',
-                estado: 'Pendiente',
+                descripcion: 'CUOTA 002',
+                monto: 'S/ 970.24',
+                vencimiento: '23/04/25',
+                estado: 'PAGADO',
             },
             {
                 item: '003',
-                descripcion: 'Seguro escolar',
-                monto: 'S/ 50.00',
-                vencimiento: '2023-09-10',
-                estado: 'Pagado',
+                descripcion: 'CUOTA 003',
+                monto: 'S/ 970.24',
+                vencimiento: '23/05/25',
+                estado: 'PAGADO',
             },
             {
                 item: '004',
-                descripcion: 'Cuota mensual octubre',
-                monto: 'S/ 300.00',
-                vencimiento: '2023-10-05',
-                estado: 'Pendiente',
+                descripcion: 'CUOTA 004',
+                monto: 'S/ 970.24',
+                vencimiento: '23/06/25',
+                estado: 'PENDIENTE DE PAGO',
+            },
+            {
+                item: '005',
+                descripcion: 'CUOTA 005',
+                monto: 'S/ 970.24',
+                vencimiento: '23/07/25',
+                estado: 'PENDIENTE DE PAGO',
             },
         ];
         return pagosSimulados;
