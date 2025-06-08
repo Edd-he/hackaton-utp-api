@@ -18,8 +18,8 @@ let PagosService = class PagosService {
     constructor(http) {
         this.http = http;
     }
-    async getPayments({ emplid, strm, grado }) {
-        const url = `https://portalestudiante.utp.edu.pe/IntegratorWithPortalC/ConsultaKardex?emplid=${emplid}&grado=${grado}&strm=${strm}`;
+    async getPayments() {
+        const url = `https://portalestudiante.utp.edu.pe/IntegratorWithPortalC/ConsultaKardex?emplid=00001387717&grado=PREG&strm=2252`;
         const response = await (0, rxjs_1.lastValueFrom)(this.http.get(url, {
             headers: {
                 'User-Agent': 'Mozilla/5.0',

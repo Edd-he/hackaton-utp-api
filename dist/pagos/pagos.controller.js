@@ -25,11 +25,7 @@ let PagosController = class PagosController {
         this.pagosService = pagosService;
     }
     findAll(session, request) {
-        return this.pagosService.getPayments({
-            emplid: session.emplid,
-            grado: session.grado,
-            strm: request.strm,
-        });
+        return this.pagosService.getPayments();
     }
 };
 exports.PagosController = PagosController;

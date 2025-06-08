@@ -3,13 +3,11 @@ import { Injectable } from '@nestjs/common'
 import * as cheerio from 'cheerio'
 import { lastValueFrom } from 'rxjs'
 
-import { RequestPaymentsDto } from './dto/request-payments.dto'
-
 @Injectable()
 export class PagosService {
   constructor(private readonly http: HttpService) {}
-  async getPayments({ emplid, strm, grado }: RequestPaymentsDto) {
-    const url = `https://portalestudiante.utp.edu.pe/IntegratorWithPortalC/ConsultaKardex?emplid=${emplid}&grado=${grado}&strm=${strm}`
+  async getPayments() {
+    const url = `https://portalestudiante.utp.edu.pe/IntegratorWithPortalC/ConsultaKardex?emplid=00001387717&grado=PREG&strm=2252`
 
     const response = await lastValueFrom(
       this.http.get(url, {

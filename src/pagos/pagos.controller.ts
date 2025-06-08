@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Body, Controller, Get } from '@nestjs/common'
 import { UserSession } from 'src/users/decorators/user-session.decorator'
 import { IUserSession } from 'src/users/types/user-session.interface'
@@ -18,10 +19,6 @@ export class PagosController {
     @UserSession() session: IUserSession,
     @Body() request: RequestPaymentsDto,
   ) {
-    return this.pagosService.getPayments({
-      emplid: session.emplid,
-      grado: session.grado,
-      strm: request.strm,
-    })
+    return this.pagosService.getPayments()
   }
 }
